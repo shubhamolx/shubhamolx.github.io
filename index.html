@@ -128,7 +128,7 @@ This is a test!</textarea
               const code = crypt.encrypt(input);
               $("#crypted").val(code);
               $("#input").val("");
-              $("#encodeText").val(code);
+              $("#encodeText").val(encodeURIComponent(code));
             } else if (crypted) {
               var decrypted = crypt.decrypt(crypted);
               if (!decrypted) decrypted = "This is a test!";
