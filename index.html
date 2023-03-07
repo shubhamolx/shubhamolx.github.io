@@ -110,7 +110,7 @@ This is a test!</textarea
                 id="encodeText-addPoDetails"
                 name="encodeText-addPoDetails"
                 style="width: 100%"
-                rows="2"
+                rows="3"
               ></textarea>
             </div>
           </div>
@@ -125,7 +125,7 @@ This is a test!</textarea
                 id="encodeText-poReview"
                 name="encodeText-poReview"
                 style="width: 100%"
-                rows="2"
+                rows="3"
               ></textarea>
             </div>
           </div>
@@ -140,7 +140,22 @@ This is a test!</textarea
                 id="encodeText-poPayment"
                 name="encodeText-poPayment"
                 style="width: 100%"
-                rows="2"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3>Encode updateCarStatuses</h3></div>
+          <div class="panel-body">
+            <div class="col-lg-12">
+              <textarea
+                id="encodeText-updateCarStatuses"
+                name="encodeText-updateCarStatuses"
+                style="width: 100%"
+                rows="3"
               ></textarea>
             </div>
           </div>
@@ -204,6 +219,11 @@ This is a test!</textarea
               );
               $("#encodeText-poPayment").val(
                 encodeURIComponent(crypt.encrypt(onDataChange("poPayment")))
+              );
+              $("#encodeText-updateCarStatuses").val(
+                encodeURIComponent(
+                  crypt.encrypt(onDataChange("updateCarStatuses"))
+                )
               );
             } else if (crypted) {
               var decrypted = crypt.decrypt(crypted);
