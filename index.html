@@ -52,23 +52,29 @@
         <div class="panel panel-default">
           <div class="panel-heading"><h3>Data</h3></div>
           <div class="panel-body">
-            <div class="col-lg-6">
-              <label for="orderId">Order Id</label>
-              <input
-                id="orderId"
-                name="orderId"
-                style="width: 100%"
-                oninput="onDataChange()"
-              />
+            <div class="col-lg-12">
+              <label for="url">URL</label>
+              <input id="url" name="url" style="width: 100%" />
             </div>
-            <div class="col-lg-6">
-              <label for="createdAt">Created At</label>
-              <input
-                id="createdAt"
-                name="createdAt"
-                style="width: 100%"
-                oninput="onDataChange()"
-              />
+            <div>
+              <div class="col-lg-6">
+                <label for="orderId">Order Id</label>
+                <input
+                  id="orderId"
+                  name="orderId"
+                  style="width: 100%"
+                  oninput="onDataChange()"
+                />
+              </div>
+              <div class="col-lg-6">
+                <label for="createdAt">Created At</label>
+                <input
+                  id="createdAt"
+                  name="createdAt"
+                  style="width: 100%"
+                  oninput="onDataChange()"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -113,6 +119,11 @@ This is a test!</textarea
                 rows="3"
               ></textarea>
             </div>
+            <div>
+              <a href="" id="link-addPoDetails" target="_blank"
+                >Link: addPoDetails</a
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -127,6 +138,9 @@ This is a test!</textarea
                 style="width: 100%"
                 rows="3"
               ></textarea>
+            </div>
+            <div>
+              <a href="" id="link-poReview" target="_blank">Link: poReview</a>
             </div>
           </div>
         </div>
@@ -143,6 +157,9 @@ This is a test!</textarea
                 rows="3"
               ></textarea>
             </div>
+            <div>
+              <a href="" id="link-poPayment" target="_blank">Link: poPayment</a>
+            </div>
           </div>
         </div>
       </div>
@@ -157,6 +174,11 @@ This is a test!</textarea
                 style="width: 100%"
                 rows="3"
               ></textarea>
+            </div>
+            <div>
+              <a href="" id="link-updateCarStatuses" target="_blank"
+                >Link: updateCarStatuses</a
+              >
             </div>
           </div>
         </div>
@@ -205,26 +227,28 @@ This is a test!</textarea
             // Get the input and crypted values.
             var input = $("#input").val();
             var crypted = $("#crypted").val();
+            var orderId = $("#orderId").val();
+            var url = $("#url").val();
 
             // Alternate the values.
             if (input) {
-              const code = crypt.encrypt(input);
+              let code = crypt.encrypt(input);
               $("#crypted").val(code);
               $("#input").val("");
-              $("#encodeText-addPoDetails").val(
-                encodeURIComponent(crypt.encrypt(onDataChange("addPoDetails")))
-              );
-              $("#encodeText-poReview").val(
-                encodeURIComponent(crypt.encrypt(onDataChange("poReview")))
-              );
-              $("#encodeText-poPayment").val(
-                encodeURIComponent(crypt.encrypt(onDataChange("poPayment")))
-              );
-              $("#encodeText-updateCarStatuses").val(
-                encodeURIComponent(
-                  crypt.encrypt(onDataChange("updateCarStatuses"))
-                )
-              );
+
+              [
+                "addPoDetails",
+                "poReview",
+                "poPayment",
+                "updateCarStatuses",
+              ].forEach((key) => {
+                code = encodeURIComponent(crypt.encrypt(onDataChange(key)))
+                $(`#encodeText-${key}`).val(code);
+                $(`#link-${key}`).attr(
+                  "href",
+                  `${url}?orderId=${orderId}&task=${code}`
+                );
+              });
             } else if (crypted) {
               var decrypted = crypt.decrypt(crypted);
               if (!decrypted) decrypted = "This is a test!";
