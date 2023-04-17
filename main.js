@@ -49,7 +49,7 @@ tasks.forEach((task) => {
 
 fs.writeFile("data.json", JSON.stringify(data, null, 4), "utf8", () => {});
 
-fs.readFile("input.html", "utf-8", (err, fileData) => {
+fs.readFile("index.html", "utf-8", (err, fileData) => {
   if (!err) {
     let innerData = "";
     [
