@@ -12,8 +12,7 @@ const publicKey = `
 var url =
   "https://admin.otoplus.com/en-tr/car/edit/e00f7366-861c-4ba9-938d-f690b0f44337/";
 var obj = new Object();
-obj.orderId = "";
-obj.taskCode = "";
+obj.orderId = "8e3ef971-7e78-40ed-96d4-2edce5bea66d";
 obj.createdAt = "2022-03-04";
 
 const tasks = [
@@ -41,10 +40,59 @@ tasks.forEach((task) => {
 
   const taskValue = encryptedData.toString("base64");
   data[task] = {
-    code: obj,
-    task: taskValue,
+    code: jsonString,
+    encryptedTask: taskValue,
+    encodedTask: encodeURIComponent(taskValue),
     url: `${url}?orderId=${obj.orderId}&task=${encodeURIComponent(taskValue)}`,
   };
 });
 
 fs.writeFile("data.json", JSON.stringify(data, null, 4), "utf8", () => {});
+
+fs.readFile("input.html", "utf-8", (err, fileData) => {
+  if (!err) {
+    let innerData = "";
+    [
+      "addPoDetails",
+      "paymentMethodApproval",
+      "addAdditionalDocs",
+      "poReview",
+      "poPayment",
+      "addDocuments",
+      "updateOrderInvoices",
+      "updateCarStatuses",
+    ].forEach((task) => {
+      innerData += `<div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>${task}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="col-lg-12">
+                <textarea
+                    id="encodeText"
+                    name="encodeText"
+                    style="width: 100%"
+                    rows="3"
+                >${data[task].code}</textarea>
+            </div>
+            <div class="col-lg-12">
+              <textarea
+                id="encodeText"
+                name="encodeText"
+                style="width: 100%"
+                rows="3"
+              >${data[task].encodedTask}</textarea>
+            </div>
+            <div>
+              <a href="${data[task].url}" id="link" target="_blank">${task}</a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+
+    const finalData = fileData.replace("{innerText}", innerData);
+    fs.writeFile("final.html", finalData, "utf8", () => {});
+  }
+});
