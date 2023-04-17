@@ -10,9 +10,9 @@ const publicKey = `
 
 -----END PUBLIC KEY-----`;
 var url =
-  "https://admin.otoplus.com/en-tr/car/edit/e00f7366-861c-4ba9-938d-f690b0f44337/";
+  "https://admin.otoplus.com/en-tr/car/edit/36c79259-3daf-4b7e-a12c-591d285d8972/";
 var obj = new Object();
-obj.orderId = "8e3ef971-7e78-40ed-96d4-2edce5bea66d";
+obj.orderId = "3b450221-143e-4d84-846c-2d04746fac40";
 obj.createdAt = "2022-03-04";
 
 const tasks = [
@@ -73,7 +73,7 @@ fs.readFile("index.html", "utf-8", (err, fileData) => {
                     id="encodeText"
                     name="encodeText"
                     style="width: 100%"
-                    rows="3"
+                    rows="1"
                 >${data[task].code}</textarea>
             </div>
             <div class="col-lg-12">
@@ -83,6 +83,14 @@ fs.readFile("index.html", "utf-8", (err, fileData) => {
                 style="width: 100%"
                 rows="3"
               >${data[task].encodedTask}</textarea>
+            </div>
+            <div class="col-lg-12">
+              <textarea
+                id="encodeText"
+                name="encodeText"
+                style="width: 100%"
+                rows="3"
+              >${data[task].url}</textarea>
             </div>
             <div>
               <a href="${data[task].url}" id="link" target="_blank">${task}</a>
